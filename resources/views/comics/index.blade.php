@@ -26,7 +26,7 @@
                 <td>{{$comic->title}}</td>
                 <td>{{$comic->type}}</td>
                 <td>
-                    <a class="btn btn-success" href="">DETTAGLI</a>
+                    <a class="btn btn-success" href="{{route('comics.show', $comic)}}">DETTAGLI</a>
                     <a class="btn btn-primary" href="">MODIFICA</a>
                 </td>
             </tr>
