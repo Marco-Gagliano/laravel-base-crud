@@ -39,14 +39,19 @@ class ComicController extends Controller
      */
     public function store(Request $request)
     {
-        $data = $request->all();
+        $comic = $request->all();
 
         $new_comic = new Comic();
-        $new_comic->title = $data['title'];
-        $new_comic->image = $data['image'];
-        $new_comic->type = $data['type'];
-        $new_comic->slug = Str::slug($data['title'], '-');
+        // $new_comic->title = $data['title'];
+        // $new_comic->image = $data['image'];
+        // $new_comic->type = $data['type'];
+        // $new_comic->slug = Str::slug($data['title'], '-');
+
+        $new_comic->fill($comic);
+        $new_comic->slug = Str::slug($comic['title']);
         $new_comic->save();
+
+
 
         //con "return redirect" reindirizzo alla show i nuovi elementi salvati
         return redirect()->route('comics.show', $new_comic);
@@ -61,7 +66,10 @@ class ComicController extends Controller
     public function show($id)
     {
         $comic = Comic::find($id);
-        return view ('comics.show', compact('comic'));
+        if($comic){
+            return view ('comics.show', compact('comic'));
+        }
+        // qui viene inserito "abort 404"
     }
 
     /**
@@ -72,7 +80,12 @@ class ComicController extends Controller
      */
     public function edit($id)
     {
-        //
+        $comic = Comic::find($id);
+
+        if($comic){
+            return view('comics.edit', compact('comic'));
+        }
+        // qui viene inserito "abort 404"
     }
 
     /**
@@ -82,9 +95,18 @@ class ComicController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Comic $comic)
     {
-        //
+        // i dati ricevuti li salvo in una variabile
+        $data = $request->all();
+
+        //creo lo slug
+        // $data['slug'] =$this->getSlug($data['title']);
+
+        // i nuovi data nel fumetto selezionato li sostituisco
+        $comic->update($data);
+
+        return redirect()->route('comics.show', $comic);
     }
 
     /**
@@ -93,8 +115,23 @@ class ComicController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Comic $comic)
     {
-        //
+        $comic->delete();
+        return redirect()->route('comics.index');
     }
+
+    //metodo di incremento dello slug non eseguito da me
+
+    // private function checkSlug($string){
+    //     $new_slug = Str::slug($string, '-');
+    //     $findSlug = Comic::where('slug', $new_slug)->first();
+    //     $i = 0;
+    //     while($findSlug){
+    //         $new_slug = Str::slug($string, '-') . $i;
+    //         $i++;
+    //         $findSlug = Comic::where('slug', $new_slug)->first();
+    //     }
+    //     return $new_slug;
+    // }
 }

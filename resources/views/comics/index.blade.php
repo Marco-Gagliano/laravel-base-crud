@@ -27,8 +27,14 @@
                 <td>{{$comic->type}}</td>
                 <td>
                     <a class="btn btn-success" href="{{route('comics.show', $comic)}}">DETTAGLI</a>
-                    <a class="btn btn-primary" href="">MODIFICA</a>
-                    <a class="btn btn-danger" href="">CANCELLA</a>
+                    <a class="btn btn-primary" href="{{route('comics.edit', $comic)}}">MODIFICA</a>
+                    <form class="d-inline"
+                        action="{{route('comics.destroy', $comic)}}" method="POST">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="btn btn-danger">CANCELLA</button>
+                    </form>
+
                 </td>
             </tr>
 
