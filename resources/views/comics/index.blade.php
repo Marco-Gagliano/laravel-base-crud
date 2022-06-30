@@ -28,6 +28,7 @@
                 <td>
                     <a class="btn btn-success" href="{{route('comics.show', $comic)}}">DETTAGLI</a>
                     <a class="btn btn-primary" href="">MODIFICA</a>
+                    <a class="btn btn-danger" href="">CANCELLA</a>
                 </td>
             </tr>
 

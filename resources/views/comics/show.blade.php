@@ -4,11 +4,11 @@
 
     <div class="container">
         <div class="row">
-            <div class="col-3 mb-4">
-                <img src="{{$comic->image}}" alt="{{$comic->name}}">
+            <div class="col-5 mb-4">
+                <img class="w-50" src="{{$comic->image}}" alt="{{$comic->name}}">
 
             </div>
-            <div class="col-9">
+            <div class="col-7">
                 <h3>{{$comic->title}}</h3>
                 <p>{{$comic->type}}</p>
             </div>

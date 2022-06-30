@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Comic;
+use Illuminate\Support\Str;
 
 class ComicController extends Controller
 {
@@ -26,7 +27,8 @@ class ComicController extends Controller
      */
     public function create()
     {
-        //
+        //viene richiamata la vista contenete il form del create
+        return view('comics.create');
     }
 
     /**
