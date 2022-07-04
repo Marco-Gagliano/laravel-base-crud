@@ -1,4 +1,5 @@
-@extends('layouts.main')
+@extends('layouts.main');
+
 
 @section('content')
     <div class="container my-5">
@@ -14,18 +15,42 @@
                     <div class="mb-3">
                         <label for="name" class="form-label fw-bold">Titolo</label>
                         {{-- il name dell'input deve risultare al nome della colonna della tabella di riferimento --}}
-                        <input type="text" value="{{$comic->title}}"id="title" name="title" class="form-control" placeholder="Inserisci il titolo del comic">
+                        <input value="{{old("title", $comic->title)}}"
+                        type="text"
+                        id="title"
+                        name="title"
+                        class="form-control @error('title') is-invalid @enderror"
+                        placeholder="Inserisci il titolo del comic">
+                        @error('title')
+                            <p class="error-msg fw-bold">{{$message}}</p>
+                        @enderror
                     </div>
 
                     <div class="mb-3">
                         <label for="image" class="form-label fw-bold">Tipo</label>
-                        <input type="text" value="{{$comic->type}}"id="image" name="image" class="form-control" placeholder="Inserisci il link della copertina" >
+                        <input value="{{old("type", $comic->type)}}"
+                        type="text"
+                        id="type"
+                        name="type"
+                        class="form-control @error('type') is-invalid @enderror"
+                        placeholder="Inserisci la tipologia del comic (es. graphic novel)">
+                        @error('type')
+                            <p class="error-msg fw-bold">{{$message}}</p>
+                        @enderror
                     </div>
 
                     <div class="mb-3">
                         <img class="w-25" src="{{ $comic->image }}" alt="{{$comic->title}}"><br>
                         <label for="type" class="form-label fw-bold">Immagine Copertina</label>
-                        <input type="text" value="{{$comic->image}}"id="type" name="type" class="form-control" placeholder="Inserisci la tipologia del comic (es. graphic novel)" >
+                        <input value="{{old("image", $comic->image)}}"
+                        type="text"
+                        id="image"
+                        name="image"
+                        class="form-control @error('image') is-invalid @enderror"
+                        placeholder="Inserisci il link della copertina">
+                        @error('image')
+                            <p class="error-msg fw-bold">{{$message}}</p>
+                        @enderror
                     </div>
 
                     <button type="submit" class="btn btn-success fw-bold">Modifica</button>
